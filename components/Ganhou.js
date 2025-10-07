@@ -7,8 +7,8 @@ console.log("ganhaste");
 const Ganhou = ({ nav }) => (
   
   <View style={styles.msg}>
-    <Image source={require('./asset/cat-laughing.png')} /> 
-    <Botao label="Reiniciar" onPress={() => {nav('inicio');GameData.setPontuacao(0)}}/>
+    <Image source={require('./asset/ganhou.gif')} /> 
+    <Botao label="Reiniciar" onPress={() => nav('inicio')}/>
   </View>
 );
 

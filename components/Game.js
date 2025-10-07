@@ -14,7 +14,7 @@ export default function Game({ nav }) {
   const [mostrarExplosao, setMostrarExplosao] = useState(false);
   const [pontuacao, setPontuacao] = useState(GameData.getPontuacao);
 
-console.log(pontuacao);
+  console.log(pontuacao);
 
   useEffect(() => {
     setBalasVivas(GameData.getBalasVivas());
@@ -25,7 +25,7 @@ console.log(pontuacao);
     if (vidaDoJogador == 0) {
       nav('perdeu');
     } else if (vidaDoInimigo == 0) {
-      setPontuacao(pontuacao+1000);
+      setPontuacao(pontuacao + 1000);
       GameData.setPontuacao(pontuacao);
       nav('ganhou');
     }
@@ -54,7 +54,7 @@ console.log(pontuacao);
     console.log('tiro');
     if (escopeta[rodadaAtual] === 1) {
       emitirSomTiro();
-      setPontuacao(pontuacao+150);
+      setPontuacao(pontuacao + 150);
       setVidaInimigo(vidaDoInimigo - 1);
       console.log('É uma bala viva!');
     } else {
@@ -71,7 +71,7 @@ console.log(pontuacao);
       console.log('É uma bala viva...');
       setTurnoDoJogador(false);
     } else {
-      setPontuacao(pontuacao+300);
+      setPontuacao(pontuacao + 300);
       console.log('É uma bala de festim!');
       setTurnoDoJogador(true);
     }
@@ -100,7 +100,7 @@ console.log(pontuacao);
         console.log('Inimigo atirou com bala de festim.');
         setTurnoDoJogador(false);
       }
-      
+
       setRodadaAtual(rodadaAtual + 1);
     }
     if (!turnoDoJogador) {
@@ -118,7 +118,7 @@ console.log(pontuacao);
         } else {
           inimigoAtirar();
         }
-        }, 1000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [
@@ -129,7 +129,6 @@ console.log(pontuacao);
     vidaDoInimigo,
     vidaDoJogador,
   ]);
-  //Alert.alert("O primeiro a jogar será decidido no cara ou coroa.");
 
   return (
     <View style={styles.main}>
@@ -147,13 +146,18 @@ console.log(pontuacao);
         </View>
       </View>
       <View style={styles.gunSection}>
-        {mostrarExplosao ? (
-          <Image
-            source={require('../assets/explosion-12681_128.gif')}
-            style={styles.explosaoImagem}
-          />
+        {turnoDoJogador ? (
+          mostrarExplosao ? (
+            <Image
+              source={require('../assets/explosion-12681_128.gif')}
+              style={styles.explosaoImagem}
+            />
+          ) : (
+            <Image source={require('./asset/turnoJ.png')} style={styles.gun} />
+          )
         ) : (
-          <Image source={require('./asset/gun1.png')} style={styles.gun} />
+          // Quando for o turno do inimigo, exibe a imagem do inimigo
+          <Image source={require('./asset/enemy.png')} style={styles.enemy} />
         )}
       </View>
 
@@ -192,7 +196,6 @@ const styles = StyleSheet.create({
   enemySection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
     alignContent: 'center',
   },
   gunSection: {
@@ -201,21 +204,21 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   gun: {
-    width: 300,
-    height: 300,
+    width: 500,
+    height: 500,
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-  btns: {},
-  explosaoContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -25 }, { translateY: -25 }],
+  enemy: {
+    width: 500,
+    height: 500,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
+
   explosaoImagem: {
-    width: 300,
-    height: 300,
+    width: 500,
+    height: 500,
     resizeMode: 'contain',
   },
 });
