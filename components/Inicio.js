@@ -33,7 +33,7 @@ const Inicio = ({ nav, sair }) => {
           label="Jogar"
           onPress={() => {
             console.log(1);
-            nav('loading');
+            nav('dificuldade');
           }}
         />
         <Botao label="Sair" onPress={sair} />

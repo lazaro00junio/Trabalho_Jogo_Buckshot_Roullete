@@ -12,8 +12,10 @@ import GameData from './GameData';
 import { Audio } from 'expo-av';
 
 export default function Game({ nav }) {
+  const dificuldade = GameData.getDificuldade();
   const [vidaDoJogador, setVidaDoJogador] = useState(3);
   const [vidaDoInimigo, setVidaInimigo] = useState(3);
+  const [vidaMaximaInimigo, setVidaMaximaInimigo] = useState(3);
   const [turnoDoJogador, setTurnoDoJogador] = useState(true);
   const [rodadaAtual, setRodadaAtual] = useState(0);
   const [balasVivas, setBalasVivas] = useState(0);
@@ -41,12 +43,25 @@ export default function Game({ nav }) {
   useEffect(() => {
     setBalasVivas(GameData.getBalasVivas());
     setEscopeta(GameData.getEscopeta());
-  }, []);
+    switch (dificuldade) {
+      case 1:
+        setVidaMaximaInimigo(4);
+        setVidaInimigo(4);
+        break;
+      case 2:
+        setVidaMaximaInimigo(6);
+        setVidaInimigo(6);
+        break;
+      case 3:
+        setVidaMaximaInimigo(9);
+        setVidaInimigo(9);
+        break;
+    }
+  }, [dificuldade]);
 
   useEffect(() => {
     if (vidaDoJogador === 0) {
-      setTimeout(() =>   nav('perdeu'), 2000);
-    
+      setTimeout(() => nav('perdeu'), 2000);
     } else if (vidaDoInimigo === 0) {
       setPontuacao(pontuacao + 1000);
       GameData.setPontuacao(pontuacao);
@@ -148,7 +163,7 @@ export default function Game({ nav }) {
               style={[
                 styles.healthBar,
                 {
-                  width: `${vidaDoInimigo * 33.33}%`,
+                  width: `${(vidaDoInimigo / vidaMaximaInimigo) * 100}%`,
                   backgroundColor: getHealthBarColor(vidaDoInimigo),
                 },
               ]}
@@ -217,7 +232,7 @@ const styles = StyleSheet.create({
   },
   healthBar: {
     height: '100%',
-    transition: 'width 0.5s ease', 
+    transition: 'width 0.5s ease',
   },
   msgs: {
     fontSize: 21,
@@ -249,9 +264,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-  explosaoImagem: { 
-    width: 500, 
-    height: 500, 
-    resizeMode: 'contain' 
-    },
+  explosaoImagem: {
+    width: 500,
+    height: 500,
+    resizeMode: 'contain',
+  },
 });
