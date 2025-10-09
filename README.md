@@ -42,11 +42,11 @@ Buckshot Roulette é um jogo inspirado na roleta russa, focado em suspense, azar
 
 ## Como jogar
    - O nosso projeto,”Buckshot Roulette”, é baseado em um jogo de computador, de mesmo nome, criado por Mike Klubnika.
-   -No início da partida, uma escopeta ,de 16 cartuchos, é carregada com um número aleatório de balas; que ,dependo da dificuldade, variam entre 6 e 12. E o restante da capacidade da arma é ocupada por cartuchos de       festim.
-   -Assim, durante a partida, jogador deve escolher entre atirar no seu inimigo ou em si mesmo;
-   -ao atirar no inimigo, o jogador não poderá atuar no próximo turno. Caso dispare um cartucho de verdade, o inimigo perderá 1 ponto de vida. Porém, isso não ocorrerá caso a bala seja falsa;
-   -ao atirar em si mesmo, caso o cartucho seja verdadeiro, o jogador poderá agir no próximo turno. Contudo, caso dispare um bala falsa, ele perderá um ponto de vida e não atuará na rodada seguinte.
-   -A partida acaba quando a vida do jogador, ou a vida do inimigo, chegar a 0.
+   - No início da partida, uma escopeta ,de 16 cartuchos, é carregada com um número aleatório de balas; que ,dependo da dificuldade, variam entre 6 e 12. E o restante da capacidade da arma é ocupada por cartuchos de festim.
+   - Assim, durante a partida, jogador deve escolher entre atirar no seu inimigo ou em si mesmo;
+   - Ao atirar no inimigo, o jogador não poderá atuar no próximo turno. Caso dispare um cartucho de verdade, o inimigo perderá 1 ponto de vida. Porém, isso não ocorrerá caso a bala seja falsa;
+   - Ao atirar em si mesmo, caso o cartucho seja verdadeiro, o jogador poderá agir no próximo turno. Contudo, caso dispare um bala falsa, ele perderá um ponto de vida e não atuará na rodada seguinte.
+   - A partida acaba quando a vida do jogador, ou a vida do inimigo, chegar a 0.
 
 ## Integrantes
 
