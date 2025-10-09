@@ -52,7 +52,7 @@ const Ganhou = ({ nav }) => {
 
   return (
     <View style={styles.msg}>
-      <Text style={styles.msgs}>Sua pontuação {pontuacao} </Text>
+      <Text style={styles.msgs}>Sua pontuação : {pontuacao} </Text>
       <Image source={require('./asset/ganhou.gif')} />
       <Botao
         label="Reiniciar"
