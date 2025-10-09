@@ -35,7 +35,7 @@ Buckshot Roulette é um jogo inspirado na roleta russa, focado em suspense, azar
 3. **Execução**
    - Abra o Vs Code e execute:
      ```bash
-     npxm start
+     npm start
      ```
    - Siga as instruções exibidas na tela para jogar.
 
