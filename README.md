@@ -41,20 +41,19 @@ Buckshot Roulette é um jogo inspirado na roleta russa, focado em suspense, azar
    - Siga as instruções exibidas na tela para jogar.
 
 ## Como jogar
-
-- O jogo simula uma mesa de roleta russa.
-- A cada rodada, você deve tomar decisões como "girar o tambor" ou "puxar o gatilho".
-- Algumas rodadas oferecem ações extras, como inspecionar a arma ou passar a vez.
-- O objetivo é sobreviver o maior número de rodadas sem ser eliminado.
-- As ações são realizadas por cliques ou comandos exibidos na interface.
-- Fique atento às mensagens do jogo para novas opções ou eventos.
+   - O nosso projeto,”Buckshot Roulette”, é baseado em um jogo de computador, de mesmo nome, criado por Mike Klubnika.
+   -No início da partida, uma escopeta ,de 16 cartuchos, é carregada com um número aleatório de balas; que ,dependo da dificuldade, variam entre 6 e 12. E o restante da capacidade da arma é ocupada por cartuchos de       festim.
+   -Assim, durante a partida, jogador deve escolher entre atirar no seu inimigo ou em si mesmo;
+   -ao atirar no inimigo, o jogador não poderá atuar no próximo turno. Caso dispare um cartucho de verdade, o inimigo perderá 1 ponto de vida. Porém, isso não ocorrerá caso a bala seja falsa;
+   -ao atirar em si mesmo, caso o cartucho seja verdadeiro, o jogador poderá agir no próximo turno. Contudo, caso dispare um bala falsa, ele perderá um ponto de vida e não atuará na rodada seguinte.
+   -A partida acaba quando a vida do jogador, ou a vida do inimigo, chegar a 0.
 
 ## Integrantes
 
-- [Nome do integrante 1]
-- [Nome do integrante 2]
-- [Nome do integrante 3]
-- [Adicione outros se necessário]
+- [Carlos Eduardo]
+- [Filipe Valadão]
+- [Matheus Carvalho]
+- [Lázaro Araújo]
 
 ## Tecnologias utilizadas
 
@@ -67,5 +66,3 @@ Buckshot Roulette é um jogo inspirado na roleta russa, focado em suspense, azar
 Este projeto é destinado apenas para fins educacionais.
 
 ---
-
-*Dúvidas ou sugestões? Abra uma issue no repositório.*
