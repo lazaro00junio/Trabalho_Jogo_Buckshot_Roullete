@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import { Platform, Alert, BackHandler, View } from 'react-native';
 import { styles } from './components/estilos';
 import Inicio from './components/Inicio';
@@ -6,9 +6,11 @@ import Game from './components/Game';
 import Loading from './components/Loading';
 import Perdeu from './components/Perdeu';
 import Ganhou from './components/Ganhou';
+import Easter from './components/Easter';
 
 export default function App() {
-  const [tela, setTela] = useState('inicio');
+ 
+  const [tela, setTela] = useState('ganhou');
 
   const goTo = (nomeTela) => {
     console.log(2);
@@ -36,6 +38,7 @@ export default function App() {
       {console.log(3.4, tela)}
       {tela === 'ganhou' && <Ganhou nav={goTo} />}
       {console.log(3.5, tela)}
+      {tela === 'easter' && <Easter nav={goTo} />}
 
     </View>
   );

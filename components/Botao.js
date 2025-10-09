@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { Text, Pressable} from 'react-native';
 import { styles } from './estilos';
 
 function Botao({ label, onPress, disabled }) {

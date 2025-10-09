@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 50,
     backgroundColor: 'red',
-    margin: 12,
+    margin: 5,
   },
   pressionado: {
     opacity: 0.85,

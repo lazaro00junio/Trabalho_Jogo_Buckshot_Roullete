@@ -1,4 +1,11 @@
-import { View, StyleSheet, Image, Text, Alert } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  Alert,
+  BackHandler,
+} from 'react-native';
 import Botao from './Botao';
 import { useState, useEffect } from 'react';
 import GameData from './GameData';
@@ -14,7 +21,22 @@ export default function Game({ nav }) {
   const [mostrarExplosao, setMostrarExplosao] = useState(false);
   const [pontuacao, setPontuacao] = useState(GameData.getPontuacao);
 
-  console.log(pontuacao);
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Voltar', 'Tem certeza?', [
+        { text: 'Cancelar', onPress: () => null, style: 'cancel' },
+        { text: 'Sim', onPress: () => nav('inicio') },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     setBalasVivas(GameData.getBalasVivas());
@@ -22,9 +44,10 @@ export default function Game({ nav }) {
   }, []);
 
   useEffect(() => {
-    if (vidaDoJogador == 0) {
-      nav('perdeu');
-    } else if (vidaDoInimigo == 0) {
+    if (vidaDoJogador === 0) {
+      setTimeout(() =>   nav('perdeu'), 2000);
+    
+    } else if (vidaDoInimigo === 0) {
       setPontuacao(pontuacao + 1000);
       GameData.setPontuacao(pontuacao);
       nav('ganhou');
@@ -33,32 +56,23 @@ export default function Game({ nav }) {
 
   const emitirSomTiro = async () => {
     try {
-      // Mostrar explosão
       setMostrarExplosao(true);
       const { sound } = await Audio.Sound.createAsync(
         require('../assets/audio/tiro.mp3')
       );
       await sound.playAsync();
-      // Esconder explosão após 500ms
-      setTimeout(() => {
-        setMostrarExplosao(false);
-      }, 2500);
+      setTimeout(() => setMostrarExplosao(false));
     } catch (error) {
       console.log('Erro ao reproduzir som:', error);
       setMostrarExplosao(false);
     }
   };
 
-  // ações do jogo
   function atirarNoInimigo() {
-    console.log('tiro');
     if (escopeta[rodadaAtual] === 1) {
       emitirSomTiro();
       setPontuacao(pontuacao + 150);
       setVidaInimigo(vidaDoInimigo - 1);
-      console.log('É uma bala viva!');
-    } else {
-      console.log('É uma bala de festim.');
     }
     setTurnoDoJogador(false);
     setRodadaAtual(rodadaAtual + 1);
@@ -68,13 +82,10 @@ export default function Game({ nav }) {
     if (escopeta[rodadaAtual] === 1) {
       emitirSomTiro();
       setVidaDoJogador(vidaDoJogador - 1);
-      console.log('É uma bala viva...');
-      setTurnoDoJogador(false);
     } else {
       setPontuacao(pontuacao + 300);
-      console.log('É uma bala de festim!');
-      setTurnoDoJogador(true);
     }
+    setTurnoDoJogador(false);
     setRodadaAtual(rodadaAtual + 1);
   }
 
@@ -83,9 +94,6 @@ export default function Game({ nav }) {
       if (escopeta[rodadaAtual] === 1) {
         emitirSomTiro();
         setVidaDoJogador(vidaDoJogador - 1);
-        Alert, alert('Inimigo atirou com bala viva!');
-      } else {
-        console.log('Inimigo atirou com bala de festim.');
       }
       setTurnoDoJogador(true);
       setRodadaAtual(rodadaAtual + 1);
@@ -94,31 +102,20 @@ export default function Game({ nav }) {
     function inimigoAtirarEmSiMesmo() {
       if (escopeta[rodadaAtual] === 1) {
         setVidaInimigo(vidaDoInimigo - 1);
-        console.log('Inimigo atirou com bala viva!');
-        setTurnoDoJogador(true);
-      } else {
-        console.log('Inimigo atirou com bala de festim.');
-        setTurnoDoJogador(false);
       }
-
+      setTurnoDoJogador(true);
       setRodadaAtual(rodadaAtual + 1);
     }
+
     if (!turnoDoJogador) {
       const timer = setTimeout(() => {
-        if (balasVivas >= 6 && balasVivas <= 9) {
-          console.log('1');
-          const n = Math.round(Math.random());
-          if (n == 1) {
-            console.log('2: O INIMIGO ATIROU');
-            inimigoAtirar();
-          } else {
-            console.log('3: O INIMIGO ATIROU EM SI MESMO');
-            inimigoAtirarEmSiMesmo();
-          }
-        } else {
+        const n = Math.round(Math.random());
+        if (n === 1) {
           inimigoAtirar();
+        } else {
+          inimigoAtirarEmSiMesmo();
         }
-      }, 3000);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, [
@@ -130,19 +127,45 @@ export default function Game({ nav }) {
     vidaDoJogador,
   ]);
 
+  const getHealthBarColor = (vida) => {
+    if (vida > 2) return 'green';
+    if (vida > 1) return 'yellow';
+    return 'red';
+  };
+
   return (
     <View style={styles.main}>
       <View style={styles.enemySection}>
         <View style={styles.enemyDiv}>
-          <Text style={styles.msgs}>
-            Turno: {turnoDoJogador ? 'Jogador' : 'Inimigo'}
-          </Text>
-          <Text style={styles.msgs}>Rodada: {rodadaAtual + 1}</Text>
-          <Text style={styles.msgs}>Pontuacao: {pontuacao}</Text>
+          <Text style={styles.msgs}>Score: {pontuacao}</Text>
+          <Text></Text>
+          <Text style={styles.msgs}>Round: {rodadaAtual + 1}</Text>
         </View>
         <View style={styles.enemyDiv1}>
-          <Text style={styles.msgs}>Inimigo: {vidaDoInimigo}</Text>
-          <Text style={styles.msgs}>Você: {vidaDoJogador}</Text>
+          <Text style={styles.msgs}>Inimigo:</Text>
+          <View style={styles.health}>
+            <View
+              style={[
+                styles.healthBar,
+                {
+                  width: `${vidaDoInimigo * 33.33}%`,
+                  backgroundColor: getHealthBarColor(vidaDoInimigo),
+                },
+              ]}
+            />
+          </View>
+          <Text style={styles.msgs}>Você:</Text>
+          <View style={styles.health}>
+            <View
+              style={[
+                styles.healthBar,
+                {
+                  width: `${vidaDoJogador * 33.33}%`,
+                  backgroundColor: getHealthBarColor(vidaDoJogador),
+                },
+              ]}
+            />
+          </View>
         </View>
       </View>
       <View style={styles.gunSection}>
@@ -156,7 +179,6 @@ export default function Game({ nav }) {
             <Image source={require('./asset/turnoJ.png')} style={styles.gun} />
           )
         ) : (
-          // Quando for o turno do inimigo, exibe a imagem do inimigo
           <Image source={require('./asset/enemy.png')} style={styles.enemy} />
         )}
       </View>
@@ -184,10 +206,22 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'space-around',
   },
+  health: {
+    width: 120,
+    height: 15,
+    backgroundColor: 'black',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'white',
+    overflow: 'hidden',
+  },
+  healthBar: {
+    height: '100%',
+    transition: 'width 0.5s ease', 
+  },
   msgs: {
     fontSize: 21,
     fontWeight: 'bold',
-    letterSpacing: 0.25,
     color: 'white',
     fontFamily: 'monospace',
     marginHorizontal: 10,
@@ -196,12 +230,12 @@ const styles = StyleSheet.create({
   enemySection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
   },
   gunSection: {
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
   },
   gun: {
     width: 500,
@@ -215,10 +249,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-
-  explosaoImagem: {
-    width: 500,
-    height: 500,
-    resizeMode: 'contain',
-  },
+  explosaoImagem: { 
+    width: 500, 
+    height: 500, 
+    resizeMode: 'contain' 
+    },
 });
