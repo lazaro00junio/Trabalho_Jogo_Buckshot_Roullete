@@ -9,7 +9,7 @@ const Dificuldade = ({ nav }) => {
   return (
     <View style={styles.msg}>
       {console.log(7)}
-      <Text style={styles.msgs}>Selecione um nível de dificuldade:</Text>
+      <Text style={styles.msgs}>Dificuldade:</Text>
       <Botao label="Fácil" onPress={() => {nav('loading');GameData.setDificuldade(0)}} />
       <Botao label="Normal" onPress={() => {nav('loading');GameData.setDificuldade(1)}} />
       <Botao label="Díficil" onPress={() => {nav('loading');GameData.setDificuldade(2)}} />
@@ -36,3 +36,4 @@ const styles = StyleSheet.create({
 });
 
 export default Dificuldade;
+
