@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, Alert } from 'react-native';
+import { View, StyleSheet, Image, Text, Alert, BackHandler } from 'react-native';
 import Botao from './Botao';
 import { useState, useEffect } from 'react';
 import GameData from './GameData';
@@ -6,6 +6,20 @@ import { Audio } from 'expo-av';
 
 const Dificuldade = ({ nav }) => {
 
+  Alert.alert('Voltar', 'Tem certeza?', [
+        { text: 'Cancelar', onPress: () => null, style: 'cancel' },
+        { text: 'Sim', onPress: () => nav('inicio') },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <View style={styles.msg}>
       {console.log(7)}
@@ -36,4 +50,5 @@ const styles = StyleSheet.create({
 });
 
 export default Dificuldade;
+
 
