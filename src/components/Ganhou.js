@@ -53,7 +53,7 @@ const Ganhou = ({ nav }) => {
   return (
     <View style={styles.msg}>
       <Text style={styles.msgs}>Sua pontuação : {pontuacao} </Text>
-      <Image source={require('./asset/ganhou.gif')} />
+      <Image source={require('../assets/ganhou.gif')} />
       <Botao
         label="Reiniciar"
         onPress={async () => {

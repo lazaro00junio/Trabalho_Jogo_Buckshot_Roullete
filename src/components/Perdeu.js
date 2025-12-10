@@ -44,7 +44,7 @@ emitirSom();
 
   return (
     <View style={styles.msg}>
-      <Image source={require('./asset/perdeu.png')} />
+      <Image source={require('../assets/perdeu.png')} />
       <Botao
         label="Reiniciar"
         onPress={async () => {

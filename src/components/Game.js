@@ -191,10 +191,10 @@ export default function Game({ nav }) {
               style={styles.explosaoImagem}
             />
           ) : (
-            <Image source={require('./asset/turnoJ.png')} style={styles.gun} />
+            <Image source={require('../assets/turnoJ.png')} style={styles.gun} />
           )
         ) : (
-          <Image source={require('./asset/enemy.png')} style={styles.enemy} />
+          <Image source={require('../assets/enemy.png')} style={styles.enemy} />
         )}
       </View>
 
